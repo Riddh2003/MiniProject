@@ -22,4 +22,10 @@ public class StudentEntity {
 	String password;
 	String email;
 	String mobileNo;
+	String collegeName;
+	String batch;
+	Integer discipline;
+	Integer regularSessions;
+	Integer communicationInSessions;
+	Integer testPerformance;
 }

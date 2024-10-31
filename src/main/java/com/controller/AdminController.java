@@ -16,12 +16,12 @@ public class AdminController {
 	StudentService studentService;
 	
 	@GetMapping("/search")
-	public ResponseEntity<?> searchStudent(@RequestParam("prefix") String prefix){
+	public ResponseEntity<?> searchStudent(@RequestParam String prefix){
 		return ResponseEntity.ok(studentService.findStudentsByNamePrefix(prefix));
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> getStudentById(@RequestParam("studentId") Integer studentId){
+	public ResponseEntity<?> getStudentById(@RequestParam Integer studentId){
 		return ResponseEntity.ok(studentService.findById(studentId));
 	}
 }

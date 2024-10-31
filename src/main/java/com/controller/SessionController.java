@@ -58,7 +58,7 @@ public class SessionController {
 		}else {
 			AdminEntity admin = adminService.authenticateAdmin(loginBean.getEmail(), loginBean.getPassword());
 			if(admin != null) {
-				String token = jwtUtility.generateToken(loginBean.getEmail(), loginBean.getPassword());
+				String token = jwtUtility.generateToken(loginBean.getEmail());
 				return ResponseEntity.ok().header("Authorization", "Bearer "+token).body("Login successfully as Admin.");
 			}
 			else {
