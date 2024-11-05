@@ -5,10 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.filter.TokenFilter;
-
-import jakarta.servlet.Filter;
 
 @Configuration
 public class SecurityConfig {
@@ -24,7 +21,7 @@ public class SecurityConfig {
                         ).permitAll()
 						.requestMatchers("/api/public/**").permitAll().requestMatchers("/api/private/**")
 								.hasAnyAuthority("admin").anyRequest().authenticated())
-				.addFilterBefore((Filter) new TokenFilter(), UsernamePasswordAuthenticationFilter.class).build();
+				.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
 	
 	@Bean

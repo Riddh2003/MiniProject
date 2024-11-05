@@ -2,7 +2,6 @@ package com.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +15,9 @@ public class StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 	
-	public List<String> findStudentsByNamePrefix(String prefix) {
-		List<Object[]> student = studentRepository.findByFirstThreeLetter(prefix);
-		return student.stream()
-				.map(result -> "First Name : "+result[0]+", Last Name : "+result[1]+", Email : "+result[2]+", Mobile No. : "+result[3])
-				.collect(Collectors.toList());
+	public List<StudentEntity> findStudentsByNamePrefix(String prefix) {
+	    List<StudentEntity> students = studentRepository.findByFirstThreeLetter(prefix);
+	    return students;
 	}
 		
 	public StudentEntity findById(Integer studentId) {

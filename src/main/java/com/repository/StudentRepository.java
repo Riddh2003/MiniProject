@@ -10,7 +10,6 @@ import com.entity.StudentEntity;
 
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Integer> {
-	
-	@Query("SELECT s.firstName, s.lastName, s.email, s.mobileNo FROM StudentEntity s WHERE s.firstName LIKE CONCAT(:prefix,'%')")
-	List<Object[]> findByFirstThreeLetter(@Param("prefix") String prefix);
+	@Query(value = "SELECT * FROM students s WHERE LOWER(s.first_name) LIKE LOWER(CONCAT(:prefix, '%'))",nativeQuery = true)
+	List<StudentEntity> findByFirstThreeLetter(@Param("prefix") String prefix);
 }

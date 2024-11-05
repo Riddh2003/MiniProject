@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +46,7 @@ public class SessionController {
 		return ResponseEntity.ok("Success");
 	}
 	
-	@PostMapping("/admin")
+	@PostMapping("/addadmin")
 	public ResponseEntity<?> addAdmin(@RequestBody AdminEntity adminEntity){
 		adminEntity.setPassword(encoder.encode(adminEntity.getPassword()));
 		adminRepository.save(adminEntity);
@@ -59,13 +61,20 @@ public class SessionController {
 			AdminEntity admin = adminService.authenticateAdmin(loginBean.getEmail(), loginBean.getPassword());
 			if(admin != null) {
 				String token = jwtUtility.generateToken(loginBean.getEmail());
-				return ResponseEntity.ok().header("Authorization", "Bearer "+token).body("Login successfully as Admin.");
+				HashMap<String, Object> response = new HashMap<>();
+				response.put("message", "Login successfully as Admin...");
+				response.put("token", token);
+				return ResponseEntity.ok()
+						.header("Authorization", "Bearer "+token)
+						.body(response);
 			}
 			else {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email and password.");
 			}
 		}
 	}
+	
+	
 }
 /*	
  * 	session controller -> public
